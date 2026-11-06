@@ -1,5 +1,9 @@
 import streamlit as st
 from PIL import Image
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+PELATIHAN_DIR = BASE_DIR / "img" / "grafik"
 
 # =========================
 # KONFIGURASI HALAMAN
@@ -94,51 +98,51 @@ def tampilkan_skenario(tabs_obj, nomor_skenario, grafik_paths):
 # ==== DAFTAR GAMBAR SKENARIO ===
 # ===============================
 grafik_skenario1 = [
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario1/fold1.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario1/fold2.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario1/fold3.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario1/fold4.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario1/fold5.png",
+    PELATIHAN_DIR / "skenario1"/"fold1.png",
+    PELATIHAN_DIR / "skenario1"/"fold2.png",
+    PELATIHAN_DIR / "skenario1"/"fold3.png",
+    PELATIHAN_DIR / "skenario1"/"fold4.png",
+    PELATIHAN_DIR / "skenario1"/"fold5.png",
 ]
 
 grafik_skenario2 = [
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario2/fold1.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario2/fold2.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario2/fold3.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario2/fold4.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario2/fold5.png",
+    PELATIHAN_DIR / "skenario2"/"fold1.png",
+    PELATIHAN_DIR / "skenario2"/"fold2.png",
+    PELATIHAN_DIR / "skenario2"/"fold3.png",
+    PELATIHAN_DIR / "skenario2"/"fold4.png",
+    PELATIHAN_DIR / "skenario2"/"fold5.png",
 ]
 
 grafik_skenario3 = [
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario3/fold1.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario3/fold2.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario3/fold3.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario3/fold4.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario3/fold5.png",
+    PELATIHAN_DIR / "skenario3"/"fold1.png",
+    PELATIHAN_DIR / "skenario3"/"fold2.png",
+    PELATIHAN_DIR / "skenario3"/"fold3.png",
+    PELATIHAN_DIR / "skenario3"/"fold4.png",
+    PELATIHAN_DIR / "skenario3"/"fold5.png",
 ]
 
 grafik_skenario4 = [
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario4/fold1.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario4/fold2.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario4/fold3.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario4/fold4.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario4/fold5.png",
+    PELATIHAN_DIR / "skenario4"/"fold1.png",
+    PELATIHAN_DIR / "skenario4"/"fold2.png",
+    PELATIHAN_DIR / "skenario4"/"fold3.png",
+    PELATIHAN_DIR / "skenario4"/"fold4.png",
+    PELATIHAN_DIR / "skenario4"/"fold5.png",
 ]
 
 grafik_skenario5 = [
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario5/fold1.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario5/fold2.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario5/fold3.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario5/fold4.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario5/fold5.png",
+    PELATIHAN_DIR / "skenario5"/"fold1.png",
+    PELATIHAN_DIR / "skenario5"/"fold2.png",
+    PELATIHAN_DIR / "skenario5"/"fold3.png",
+    PELATIHAN_DIR / "skenario5"/"fold4.png",
+    PELATIHAN_DIR / "skenario5"/"fold5.png",
 ]
 
 grafik_skenario6 = [
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario6/fold1.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario6/fold2.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario6/fold3.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario6/fold4.png",
-    r"E:/SKRIPSI/streamlit/img/grafik/skenario6/fold5.png",
+    PELATIHAN_DIR / "skenario6"/"fold1.png",
+    PELATIHAN_DIR / "skenario6"/"fold2.png",
+    PELATIHAN_DIR / "skenario6"/"fold3.png",
+    PELATIHAN_DIR / "skenario6"/"fold4.png",
+    PELATIHAN_DIR / "skenario6"/"fold5.png",
 ]
 
 # ==========================
