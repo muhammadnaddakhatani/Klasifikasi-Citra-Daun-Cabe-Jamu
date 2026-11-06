@@ -1,4 +1,8 @@
 import streamlit as st
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+IMG_DIR = BASE_DIR / "img"
 
 # --- Judul halaman ---
 st.markdown(
@@ -69,13 +73,13 @@ st.markdown("")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.image("E:/SKRIPSI/streamlit/img/bercakdaun.jpg", caption="Bercak Daun", use_column_width=True)
+    st.image(str(IMG_DIR / "bercakdaun.jpg"), caption="Bercak Daun", use_container_width=True)
 
 with col2:
-    st.image("E:/SKRIPSI/streamlit/img/keriting.jpg", caption="Keriting", use_column_width=True)
+    st.image(str(IMG_DIR / "keriting.jpg"), caption="Keriting", use_container_width=True)
 
 with col3:
-    st.image("E:/SKRIPSI/streamlit/img/sehat.jpg", caption="Sehat", use_column_width=True)
+    st.image(str(IMG_DIR / "sehat.jpg"), caption="Sehat", use_container_width=True)
 
 
 
