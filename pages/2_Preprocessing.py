@@ -1,7 +1,18 @@
 import streamlit as st
 from PIL import Image
-import os
+from pathlib import Path
 
+# ============================
+# KONFIGURASI DIREKTORI
+# ============================
+BASE_DIR = Path(__file__).resolve().parent.parent
+PREPROCESSING_DIR = BASE_DIR / "preprocessing"
+
+KELAS = ["bercakdaun", "keriting", "sehat"]
+
+# ============================
+# CUSTOM CSS
+# ============================
 st.markdown("""
 <style>
 html, body, [data-testid="stApp"] {
@@ -13,17 +24,14 @@ html, body, [data-testid="stApp"] {
     padding-top: 0px !important;
 }
 
-/* Hilangkan header hitam */
 header[data-testid="stHeader"] {
     display: none;
 }
 
-/* Sidebar abu terang */
 [data-testid="stSidebar"] {
     background-color: #f5f5f5 !important;
 }
 
-/* Semua teks hitam */
 * {
     color: black !important;
 }
@@ -32,42 +40,51 @@ header[data-testid="stHeader"] {
 
 st.title("Preprocessing Dataset")
 
-BASE_DIR = r"E:/SKRIPSI/streamlit/preprocessing/"
-KELAS = ["bercakdaun", "keriting", "sehat"]
-
 
 # ============================
-# Fungsi scan gambar per kelas
+# FUNGSI SCAN GAMBAR PER KELAS
 # ============================
 def load_images_per_class(folder):
-    folder_path = os.path.join(BASE_DIR, folder)
 
-    if not os.path.exists(folder_path):
-        st.warning(f"Folder {folder} tidak ditemukan.")
-        return {}
+    folder_path = PREPROCESSING_DIR / folder
 
-    hasil = {}
+    # Inisialisasi dictionary agar semua kelas tersedia
+    hasil = {cls: [] for cls in KELAS}
+
+    if not folder_path.exists():
+        st.warning(
+            f"Folder {folder} tidak ditemukan: {folder_path}"
+        )
+        return hasil
+
+    if not folder_path.is_dir():
+        st.warning(f"{folder_path} bukan sebuah folder.")
+        return hasil
 
     for cls in KELAS:
-        class_dir = os.path.join(folder_path, cls)
-        if not os.path.exists(class_dir):
-            hasil[cls] = []
+
+        class_dir = folder_path / cls
+
+        if not class_dir.exists():
             continue
 
         imgs = [
-            os.path.join(class_dir, f)
-            for f in os.listdir(class_dir)
-            if f.lower().endswith((".jpg", ".png", ".jpeg"))
+            str(file)
+            for file in class_dir.iterdir()
+            if file.is_file()
+            and file.suffix.lower() in (".jpg", ".png", ".jpeg")
         ]
-        hasil[cls] = imgs
+
+        hasil[cls] = sorted(imgs)
 
     return hasil
 
 
 # ============================
-# Fungsi tampil grid
+# FUNGSI TAMPIL GRID
 # ============================
 def show_grid(images, cols=6):
+
     if not images:
         st.info("Tidak ada gambar ditemukan.")
         return
@@ -76,32 +93,55 @@ def show_grid(images, cols=6):
     index = 0
 
     for _ in range(rows):
+
         columns = st.columns(cols)
+
         for col in columns:
+
             if index < len(images):
-                img = Image.open(images[index])
-                col.image(img, use_column_width=True)
-                col.caption(os.path.basename(images[index]))
+
+                try:
+                    with Image.open(images[index]) as img:
+                        col.image(
+                            img.copy(),
+                            use_container_width=True
+                        )
+
+                    col.caption(Path(images[index]).name)
+
+                except Exception as e:
+                    col.error(
+                        f"Gagal membaca gambar: {Path(images[index]).name}"
+                    )
+
                 index += 1
 
 
 # ============================
 # TABS PREPROCESSING
 # ============================
-tab1, tab2, tab3 = st.tabs(["Augmentasi", "Bounding Box", "Resize"])
+tab1, tab2, tab3 = st.tabs([
+    "Augmentasi",
+    "Bounding Box",
+    "Resize"
+])
 
 
 # ============================
 # TAB AUGMENTASI
 # ============================
 with tab1:
+
     st.subheader("Augmentasi")
 
     data = load_images_per_class("augmentasi")
 
     for cls in KELAS:
+
         st.markdown(f"### {cls.capitalize()}")
-        show_grid(data[cls])
+
+        show_grid(data.get(cls, []))
+
         st.markdown("---")
 
 
@@ -109,13 +149,17 @@ with tab1:
 # TAB BOUNDING BOX
 # ============================
 with tab2:
+
     st.subheader("Bounding Box")
 
     data = load_images_per_class("bounding_box")
 
     for cls in KELAS:
+
         st.markdown(f"### {cls.capitalize()}")
-        show_grid(data[cls])
+
+        show_grid(data.get(cls, []))
+
         st.markdown("---")
 
 
@@ -123,11 +167,15 @@ with tab2:
 # TAB RESIZE
 # ============================
 with tab3:
+
     st.subheader("Resize")
 
     data = load_images_per_class("resize")
 
     for cls in KELAS:
+
         st.markdown(f"### {cls.capitalize()}")
-        show_grid(data[cls])
+
+        show_grid(data.get(cls, []))
+
         st.markdown("---")
